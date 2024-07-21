@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "city": "New York",
+        "price": 5000,
+        "desc": "New York is a state in the northeastern U.S., known for New York City and towering Niagara Falls. NYC’s island of Manhattan is home to the Empire State Building, Times Square and Central Park. The Brooklyn Bridge connects Manhattan with the borough of Brooklyn. The iconic Statue of Liberty stands in New York Harbor. To the east, Long Island has beaches, the Montauk Lighthouse, the ritzy Hamptons and Fire Island.",
+        "img": "https://www.planetware.com/photos-large/USNY/new-york-city-statue-of-liberty.jpg",
+        "hotels": [
+            {
+                "id": 1,
+                "name": "Hotel 1",
+                "price": 1000
+            },
+            {
+                "id": 2,
+                "name": "Hotel 2",
+                "price": 2000
+            },
+            {
+                "id": 3,
+                "name": "Hotel 3",
+                "price": 3000
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "city": "Los Angeles",
+        "price": 4000,
+        "desc": "Los Angeles is a sprawling Southern California city and the center of the nation’s film and television industry. Near its iconic Hollywood sign, studios such as Paramount Pictures, Universal and Warner Brothers offer behind-the-scenes tours. On Hollywood Boulevard, TCL Chinese Theatre displays celebrities’ hand- and footprints, the Walk of Fame honors thousands of luminaries and vendors sell maps to stars’ homes.",
+        "img": "https://www.planetware.com/photos-large/USCA/california-los-angeles-hollywood-walk-of-fame-and-street.jpg",
+        "hotels": [
+            {
+                "id": 1,
+                "name": "Hotel 1",
+                "price": 1000
+            },
+            {
+                "id": 2,
+                "name": "Hotel 2",
+                "price": 2000
+            },
+            {
+                "id": 3,
+                "name": "Hotel 3",
+                "price": 3000
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "city": "Chicago",
+        "price": 3000,
+        "desc": "Chicago, on Lake Michigan in Illinois, is among the largest cities in the U.S. Famed for its bold architecture, it has a skyline punctuated by skyscrapers such as the iconic John Hancock Center, 1,451-ft. Willis Tower (formerly the Sears Tower) and the neo-Gothic Tribune Tower. The city is also renowned for its museums, including the Art Institute of Chicago with its noted Impressionist and Post-Impressionist works.",
+        "img": "https://www.planetware.com/photos-large/USIL/illinois-chicago-millenium-park.jpg",
+        "hotels": [
+            {
+                "id": 1,
+                "name": "Hotel 1",
+                "price": 1000
+            },
+            {
+                "id": 2,
+                "name": "Hotel 2",
+                "price": 2000
+            },
+            {
+                "id": 3,
+                "name": "Hotel 3",
+                "price": 3000
+            }
+        ]
+    }
+]
