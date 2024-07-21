@@ -136,7 +136,8 @@ body {
     color: #4a148c;
 }
 
-.confirmation-container button {
+.confirmation-container button,
+.details-button {
     background-color: #4a148c;
     color: white;
     border: none;
@@ -147,4 +148,8 @@ body {
 
 .confirmation-container button:hover {
     background-color: #7b1fa2;
+}
+
+.options-picker div {
+    margin: 1rem 0;
 }
