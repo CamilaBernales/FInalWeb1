@@ -9,24 +9,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderHome(cities) {
     app.innerHTML = `
-      <div class="cards-container">
-        ${cities
-          .map(
-            (city) => `
-          <div class="card">
-            <img src="${city.img}" alt="${city.city}">
-            <div class="card-content">
+    <div class="cards-container">
+      ${cities
+        .map(
+          (city) => `
+        <div class="card">
+          <img src="${city.img}" alt="${city.city}">
+          <div class="card-content">
+            <div class="card-header">
               <div class="card-title">${city.city}</div>
-              <div class="card-price">desde $${city.price}</div>
-              <div class="card-description">${city.desc}</div>
-              <button onclick="selectCity(${city.id})">Ver más</button>
+              <div class="card-price">Desde $${city.price}</div>
             </div>
+            <div class="card-description">${city.desc}</div>
+            <button onclick="selectCity(${city.id})">Ver más</button>
           </div>
-        `
-          )
-          .join("")}
-      </div>
-    `;
+        </div>
+      `
+        )
+        .join("")}
+    </div>
+  `;
   }
 
   window.selectCity = function (cityId) {
@@ -40,11 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderDetails(city) {
     app.innerHTML = `
+    <div>
       <div class="details-container active">
         <img src="${city.img}" alt="${city.city}">
         <div class="details-content">
-          <h2>${city.city}</h2>
-          <p>${city.desc}</p>
+          <h2>Calcula tu viaje a ${city.city}</h2>
+         
           <div class="options-picker">
             <div>
                 <label for="hotel">Hoteles</label>
@@ -74,6 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
     })">Viajar!</button>
         </div>
       </div>
+      <div class="details-desc"> <p>${city.desc}</p> </div>
+    </div>
     `;
 
     const hotelSelect = document.getElementById("hotel");
@@ -114,57 +119,86 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const total = basePrice + hotelPrice * guests * days;
 
-        renderSummary(
-          city,
-          hotelSelect.options[hotelSelect.selectedIndex].text,
-          guests,
-          days,
-          total
-        );
+        const tripDetails = {
+          city: city.city,
+          hotel: hotelSelect.options[hotelSelect.selectedIndex].text,
+          guests: guests,
+          days: days,
+          total: total,
+        };
+
+        localStorage.setItem("tripDetails", JSON.stringify(tripDetails));
+        renderSummary();
       });
   };
 
-  function renderSummary(city, hotel, guests, days, total) {
+  function renderSummary() {
+    const tripDetails = JSON.parse(localStorage.getItem("tripDetails"));
+
+    if (!tripDetails) {
+      returnHome();
+      return;
+    }
+
+    const { city, hotel, guests, days, total } = tripDetails;
+
     app.innerHTML = `
-      <div class="summary-container active">
-        <div class="summary-content">
-          <h2>Resumen</h2>
-          <p>Destino: ${city.city}</p>
-          <p>Hotel: ${hotel}</p>
-          <p>Huéspedes: ${guests}</p>
-          <p>Días: ${days}</p>
-          <p class="total">Total: $${total}</p>
-          <h3>Datos de facturación</h3>
-          <div class="form-group">
-            <label for="firstName">Nombre</label>
-            <input type="text" id="firstName">
-          </div>
-          <div class="form-group">
-            <label for="lastName">Apellido</label>
-            <input type="text" id="lastName">
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email">
-          </div>
-          <div class="form-group">
-            <label for="phone">Teléfono</label>
-            <input type="tel" id="phone">
-          </div>
-          <div id="form-error-message" style="color: red;"></div>
-          <button onclick="cancelTrip()">Cancelar</button>
-          <button onclick="submitTrip()">Viajar!</button>
+        <div class="summary-container active">
+            <div class="summary-content">
+                <div class="summary-box">
+                    <h2>Resumen</h2>
+                    <div class="summary-item">
+                        <label for="summary-destination">Destino:</label>
+                        <input type="text" id="summary-destination" value="${city}" disabled>
+                    </div>
+                    <div class="summary-item">
+                        <label for="summary-hotel">Hotel:</label>
+                        <input type="text" id="summary-hotel" value="${hotel}" disabled>
+                    </div>
+                    <div class="summary-item">
+                        <label for="summary-guests">Huéspedes:</label>
+                        <input type="number" id="summary-guests" value="${guests}" disabled>
+                    </div>
+                    <div class="summary-item">
+                        <label for="summary-days">Días:</label>
+                        <input type="number" id="summary-days" value="${days}" disabled>
+                    </div>
+                    <div class="summary-item total">
+                        <label for="summary-total">Total:</label>
+                        <input type="text" id="summary-total" value="$${total}" disabled>
+                    </div>
+                </div>
+                <div class="billing-box">
+                    <h2>Datos de facturación</h2>
+                    <div class="form-group">
+                        <label for="firstName">Nombre</label>
+                        <input type="text" id="firstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Apellido</label>
+                        <input type="text" id="lastName">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone">
+                    </div>
+                    <div id="form-error-message" style="color: red;"></div>
+                    <button class="cancel-button" onclick="cancelTrip()">Cancelar</button>
+                    <button class="submit-button" onclick="submitTrip()">Viajar!</button>
+                </div>
+            </div>
         </div>
-      </div>
     `;
   }
 
   window.cancelTrip = function () {
-    fetch("place.json")
-      .then((response) => response.json())
-      .then((data) => {
-        renderHome(data);
-      });
+    localStorage.removeItem("selectedCity");
+    localStorage.removeItem("tripDetails");
+    returnHome();
   };
 
   window.submitTrip = function () {
